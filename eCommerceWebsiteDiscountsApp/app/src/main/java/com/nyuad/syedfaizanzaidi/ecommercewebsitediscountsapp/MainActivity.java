@@ -21,6 +21,9 @@ import eCommerceWebsiteDiscounts.RegularCustomer;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*
+        Variables used in this class
+     */
     private Spinner customerDropdown;
     private Button btnCalculate, btnRefresh;
     private TextView displayDiscount, displayBill;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //User Input
+        //User Input on the app
         customerDropdown = findViewById(R.id.customer_types);
         totalBill = findViewById(R.id.total_bill);
         groceryBill = findViewById(R.id.grocery_discount);
@@ -42,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
         // Button to calculate discount and bill
         btnCalculate = findViewById(R.id.calculate_btn);
 
-        //To display
+        //Text views to display the final bill
         displayDiscount = findViewById(R.id.discount_availed);
         displayBill = findViewById(R.id.payable_bill);
 
-        // Refresh page
+        // Button to Refresh page
         btnRefresh = findViewById(R.id.refresh_btn);
 
 
-        getCustomer(); // gets customer selected
+        getCustomer(); // gets customer selected from dropdown spinner
 
         // Click button to calculate the discount and bill
         btnCalculate.setOnClickListener(new View.OnClickListener() {
@@ -72,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // The activity that triggers the calculation of the bill
     public void getInformation(){
 
+        //Creates Customer object, depending on customer type selected
         switch (customerSelected){
             case ("Employee"):
                 customer = new Employee();
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 customer = new Customer();
         }
 
+        //If there is no bill amount, tell user to enter an amount
         if (totalBill.getText().toString().isEmpty()){
             Toast.makeText(getBaseContext(), "Please enter bill amount", Toast.LENGTH_SHORT).show();
             return;
@@ -96,13 +102,14 @@ public class MainActivity extends AppCompatActivity {
         float f = Float.parseFloat(totalBill.getText().toString());
         float g;
 
-
+        //without checking if this field is empty, we get an error
         if (groceryBill.getText().toString().isEmpty()) {
                 g = 0;
         } else {
             g = Float.valueOf(groceryBill.getText().toString());
         }
 
+        //grocery bill cannot be greater than total bill
         if (f<g){
             Toast.makeText(getBaseContext(), "Total bill cannot be less than groceries", Toast.LENGTH_SHORT).show();
             return;
@@ -110,17 +117,25 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("message", String.valueOf(g));
 
-
+        //create a bill object, for that particular customer
         bill = new Bill(customer,  f, g);
 
+        /*
+            Show the final payable bill and the discount availed by the customer
+         */
+
         discount = String.valueOf(bill.totalDiscount());
-        finalBill = String.valueOf(f - bill.totalDiscount());
+        double d = Math.round((f-bill.totalDiscount())*100.0)/100.0; // to round off to two decimal points
+        finalBill = String.valueOf(d);
         displayBill.setText(finalBill);
         displayDiscount.setText(discount);
 
 
     }
 
+    /*
+        Get the customer selected by the user from the spinner and set global variable to it
+     */
     public void getCustomer() {
 
         customerDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

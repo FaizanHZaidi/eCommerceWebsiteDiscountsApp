@@ -1,6 +1,8 @@
 package eCommerceWebsiteDiscounts;// package impl;
 
 
+import java.text.DecimalFormat;
+
 /*
 *   This class calculates the total discount for a particular
 *   customer and sends it to the main class i.e. BillTest
@@ -42,8 +44,9 @@ public class Bill {
     public float totalDiscount(){
 
     		float discount = this.salesDiscount() + this.customerDiscount();
+			double d = Math.round(discount*100.0)/100.0;
     		
-    		return discount;
+    		return (float)d;
     		
     }
 
