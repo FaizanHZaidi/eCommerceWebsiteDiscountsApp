@@ -1,4 +1,4 @@
-// package impl;
+package eCommerceWebsiteDiscounts;// package impl;
 
 /*
 *	A customer who is an affiliate of the store

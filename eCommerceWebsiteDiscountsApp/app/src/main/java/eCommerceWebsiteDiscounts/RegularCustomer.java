@@ -1,4 +1,4 @@
-// package impl;
+package eCommerceWebsiteDiscounts;// package impl;
 
 /*
 *	A regular customer, whose been shopping for 2 yrs at least

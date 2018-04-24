@@ -1,4 +1,4 @@
-// package impl;
+package eCommerceWebsiteDiscounts;// package impl;
 
 /*
 *	Customer who is an employee as well

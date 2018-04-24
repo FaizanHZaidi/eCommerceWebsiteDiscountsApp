@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">eCommerceWebsiteDiscountsApp</string>
+    <string-array name="customerList">
+        <item>Employee</item>
+        <item>Affiliate</item>
+        <item>Regular</item>
+        <item>None of the above</item>
+    </string-array>
 </resources>
